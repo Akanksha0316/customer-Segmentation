@@ -1,0 +1,148 @@
+# IMPORTANT: RUN THIS CELL IN ORDER TO IMPORT YOUR KAGGLE DATA SOURCES,
+# THEN FEEL FREE TO DELETE THIS CELL.
+# NOTE: THIS NOTEBOOK ENVIRONMENT DIFFERS FROM KAGGLE'S PYTHON
+# ENVIRONMENT SO THERE MAY BE MISSING LIBRARIES USED BY YOUR
+# NOTEBOOK.
+import kagglehub
+vjchoudhary7_customer_segmentation_tutorial_in_python_path = kagglehub.dataset_download('vjchoudhary7/customer-segmentation-tutorial-in-python')
+
+print('Data source import complete.')
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import scipy as sp
+import plotly.express as px
+import plotly.graph_objects as go
+import plotly.io as pio
+import scipy.stats as st
+%matplotlib inline
+
+
+from sklearn.preprocessing import LabelEncoder
+from sklearn.cluster import KMeans
+from mpl_toolkits.mplot3d import Axes3D
+#!pip install yellowbrick
+from yellowbrick.cluster import KElbowVisualizer
+from termcolor import colored
+
+from warnings import filterwarnings
+filterwarnings("ignore")
+
+from sklearn import set_config
+set_config(print_changed_only = False)
+
+print(colored("Required libraries were succesfully imported...", color = "green", attrs = ["bold", "dark"]))
+
+
+from sklearn.cluster import KMeans
+from yellowbrick.cluster import KElbowVisualizer
+
+# Use the elbow method to find the optimal number of clusters
+model = KMeans()
+visualizer = KElbowVisualizer(model, k=(1,11))
+
+visualizer.fit(scaled_data)        # Fit the data to the visualizer
+visualizer.show()        # Finalize and render the figure
+
+df.info()
+df.describe()
+sns.pairplot(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']])
+sns.heatmap(df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']].corr(), annot=True)
+
+
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+import kagglehub
+
+# Define the path to the dataset. This variable is defined in the first cell,
+# but we include it here for clarity and to make this cell runnable independently.
+vjchoudhary7_customer_segmentation_tutorial_in_python_path = kagglehub.dataset_download('vjchoudhary7/customer-segmentation-tutorial-in-python')
+
+
+# Load the data
+df = pd.read_csv(f'{vjchoudhary7_customer_segmentation_tutorial_in_python_path}/Mall_Customers.csv')
+
+# Convert Gender to numeric
+df['Gender'] = df['Gender'].map({'Male': 0, 'Female': 1})
+
+# Feature Scaling
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(df[['Gender', 'Age', 'Annual Income (k$)', 'Spending Score (1-100)']])
+
+
+from sklearn.cluster import KMeans
+from yellowbrick.cluster import KElbowVisualizer
+
+# Use the elbow method to find the optimal number of clusters
+model = KMeans()
+visualizer = KElbowVisualizer(model, k=(1,11))
+
+visualizer.fit(scaled_data)        # Fit the data to the visualizer
+visualizer.show()        # Finalize and render the figure
+
+
+import matplotlib.pyplot as plt
+
+# Elbow Method to find optimal clusters
+wcss = []
+for i in range(1, 11):
+    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
+    kmeans.fit(scaled_data)
+    wcss.append(kmeans.inertia_)
+
+plt.plot(range(1, 11), wcss)
+plt.title("Elbow Method")
+plt.xlabel("No. of Clusters")
+plt.ylabel("WCSS")
+plt.show()
+
+
+!pip install sklearn.cluster
+import sklearn.cluster
+kmeans = KMeans(n_clusters=5, random_state=42)
+y_kmeans = kmeans.fit_predict(scaled_data)
+df['Cluster_KMeans'] = y_kmeans
+
+
+linked = linkage(scaled_data, method='ward')
+plt.figure(figsize=(10, 7))
+dendrogram(linked)
+plt.title('Dendrogram')
+plt.xlabel('Customers')
+plt.ylabel('Euclidean Distance')
+plt.show()
+
+# Cut the dendrogram to form 5 clusters
+df['Cluster_Hierarchical'] = fcluster(linked, 5, criterion='maxclust')
+
+
+from sklearn.cluster import KMeans
+from yellowbrick.cluster import KElbowVisualizer
+
+# Use the elbow method to find the optimal number of clusters
+model = KMeans()
+visualizer = KElbowVisualizer(model, k=(1,11))
+
+visualizer.fit(scaled_data)        # Fit the data to the visualizer
+visualizer.show()        # Finalize and render the figure
+
+from sklearn.cluster import KMeans
+from yellowbrick.cluster import KElbowVisualizer
+
+# Use the elbow method to find the optimal number of clusters
+model = KMeans()
+visualizer = KElbowVisualizer(model, k=(1,11))
+
+visualizer.fit(scaled_data)        # Fit the data to the visualizer
+visualizer.show()        # Finalize and render the figure
+
+
+
+
+
+
+
+
+
